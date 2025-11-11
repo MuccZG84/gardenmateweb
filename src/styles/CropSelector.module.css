@@ -1,0 +1,121 @@
+.selectorContainer {
+  padding: 12px;
+  background-color: #f9f9f4;
+}
+
+.heading {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.plantList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.plantItem {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.plantItem:hover {
+  background-color: #eef0e8;
+}
+
+.selected {
+  border-color: #4caf50;
+  background-color: #e6f4e6;
+}
+
+.name {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.compat, .incompat {
+  font-size: 0.85rem;
+  color: #555;
+}
+.selectorContainer {
+  padding: 12px;
+  background-color: #f9f9f4;
+}
+
+.label {
+  font-size: 1rem;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.infoBox {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  background-color: #eef0e8;
+  padding: 8px;
+  border-radius: 6px;
+}
+.selectorContainer {
+  padding: 12px;
+  background-color: #f9f9f4;
+}
+
+.label {
+  font-size: 1rem;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.infoBox {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  background-color: #eef0e8;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.compat, .incompat {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.compatTag {
+  background-color: #d0f0d0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.incompatTag {
+  background-color: #fce4e4;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}

@@ -1,0 +1,10 @@
+.footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  background-color: #f1f8e9;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.85rem;
+  border-top: 1px solid #ccc;
+}

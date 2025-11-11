@@ -1,0 +1,62 @@
+.calendarContainer {
+  padding: 12px;
+  background-color: #f6f6f2;
+  border-top: 1px solid #ccc;
+}
+
+.title {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.monthGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 stupca = 4 reda */
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.month {
+  padding: 6px;
+  text-align: center;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  background-color: #e0e0e0;
+}
+
+.sadnja {
+  background-color: #c8e6c9;
+}
+
+.berba {
+  background-color: #fff9c4;
+}
+
+.both {
+  background: linear-gradient(135deg, #c8e6c9 50%, #fff9c4 50%);
+}
+
+.legend {
+  display: flex;
+  gap: 12px;
+  font-size: 0.8rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.sadnjaBox, .berbaBox {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  border-radius: 3px;
+  margin-right: 4px;
+}
+
+.sadnjaBox {
+  background-color: #c8e6c9;
+}
+
+.berbaBox {
+  background-color: #fff9c4;
+}
