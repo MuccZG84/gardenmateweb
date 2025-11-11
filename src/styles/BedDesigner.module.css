@@ -39,7 +39,7 @@
 }
 
 .hasPlant {
-  background-color: #c8e6c9; /* svijetlo zelena za postavljene biljke */
+  background-color: #c8e6c9;
 }
 
 .resetBtn {
@@ -73,6 +73,7 @@
 .rightEdge {
   border-right: 3px solid #4caf50;
 }
+
 .cellWrapper {
   display: flex;
   flex-direction: column;
@@ -80,19 +81,6 @@
   gap: 4px;
 }
 
-.deleteBtn {
-  background: none;
-  border: none;
-  color: #b71c1c;
-  font-size: 0.75rem;
-  cursor: pointer;
-  padding: 0;
-  transition: color 0.2s ease;
-}
-
-.deleteBtn:hover {
-  color: #f44336;
-}
 .plantContent {
   display: flex;
   flex-direction: column;
@@ -113,4 +101,33 @@
 
 .deleteBtn:hover {
   color: #f44336;
+}
+
+.selectorRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 8px 0;
+}
+
+.selectorRow label {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+}
+
+.selectorDropdown {
+  padding: 6px 12px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.selectorDropdown:hover {
+  border-color: #888;
 }

@@ -1,16 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/BedDesigner.module.css';
+import { saveBed } from '../firebase/bedService';
+import { auth } from '../firebase/config';
 
 const GRID_ROWS = 4;
 const GRID_COLS = 6;
 
+const predefinedPlants = [
+  { naziv: 'Mrkva', visina: 'nisko', razmak: '10cm', kompatibilne: ['Luk'], nekompatibilne: ['Kopar'] },
+  { naziv: 'Rajčica', visina: 'visoko', razmak: '40cm', kompatibilne: ['Bosiljak'], nekompatibilne: ['Krumpir'] },
+  { naziv: 'Salata', visina: 'nisko', razmak: '20cm', kompatibilne: ['Rotkvica'], nekompatibilne: [] },
+  { naziv: 'Luk', visina: 'nisko', razmak: '10cm', kompatibilne: ['Mrkva'], nekompatibilne: ['Grašak'] },
+  { naziv: 'Krumpir', visina: 'srednje', razmak: '30cm', kompatibilne: ['Kupus'], nekompatibilne: ['Rajčica'] },
+  { naziv: 'Kupus', visina: 'srednje', razmak: '30cm', kompatibilne: ['Krumpir'], nekompatibilne: ['Rajčica'] },
+  { naziv: 'Rotkvica', visina: 'nisko', razmak: '10cm', kompatibilne: ['Salata'], nekompatibilne: [] },
+  { naziv: 'Bosiljak', visina: 'nisko', razmak: '20cm', kompatibilne: ['Rajčica'], nekompatibilne: [] },
+  { naziv: 'Kopar', visina: 'nisko', razmak: '15cm', kompatibilne: ['Krastavac'], nekompatibilne: ['Mrkva'] },
+  { naziv: 'Krastavac', visina: 'puzajuće', razmak: '40cm', kompatibilne: ['Kopar'], nekompatibilne: ['Aromatične biljke'] },
+  { naziv: 'Blitva', visina: 'srednje', razmak: '25cm', kompatibilne: ['Luk'], nekompatibilne: [] },
+  { naziv: 'Cikla', visina: 'nisko', razmak: '15cm', kompatibilne: ['Luk'], nekompatibilne: ['Špinat'] },
+  { naziv: 'Špinat', visina: 'nisko', razmak: '10cm', kompatibilne: ['Rotkvica'], nekompatibilne: ['Cikla'] },
+  { naziv: 'Peršin', visina: 'nisko', razmak: '10cm', kompatibilne: ['Mrkva'], nekompatibilne: [] },
+  { naziv: 'Češnjak', visina: 'nisko', razmak: '10cm', kompatibilne: ['Rajčica'], nekompatibilne: ['Grašak'] },
+  { naziv: 'Grašak', visina: 'penjač', razmak: '30cm', kompatibilne: ['Mrkva'], nekompatibilne: ['Luk', 'Češnjak'] },
+];
+
 export default function BedDesigner({ selectedPlant }) {
   const [grid, setGrid] = useState(Array(GRID_ROWS * GRID_COLS).fill(null));
+  const [bedName, setBedName] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [selected, setSelected] = useState(selectedPlant || null);
+  const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('editBed');
+    if (saved) {
+      setIsEditing(true);
+      try {
+        const parsed = JSON.parse(saved);
+        console.log('🧩 Učitana gredica iz localStorage:', parsed);
+        setGrid(parsed.grid || Array(GRID_ROWS * GRID_COLS).fill(null));
+        setBedName(parsed.name || '');
+      } catch (error) {
+        console.error('Greška pri učitavanju gredice za uređivanje:', error);
+      } finally {
+        localStorage.removeItem('editBed');
+      }
+    }
+  }, []);
 
   const handleCellClick = (index) => {
-    if (!selectedPlant || grid[index]) return;
+    if (!selected || grid[index]) return;
     const newGrid = [...grid];
-    newGrid[index] = selectedPlant;
+    newGrid[index] = selected;
     setGrid(newGrid);
   };
 
@@ -25,6 +67,37 @@ export default function BedDesigner({ selectedPlant }) {
   const resetGrid = () => {
     if (window.confirm('Želiš li stvarno resetirati cijelu gredicu?')) {
       setGrid(Array(GRID_ROWS * GRID_COLS).fill(null));
+    }
+  };
+
+  const handleSave = async () => {
+    const user = auth.currentUser;
+    console.log('👤 Prijavljeni korisnik:', user);
+
+    if (!user) {
+      alert('Prijava je potrebna za spremanje gredice.');
+      return;
+    }
+
+    const bedData = {
+      name: bedName || 'Moja gredica',
+      grid: grid,
+    };
+
+    console.log('📤 Podaci za spremanje:', bedData);
+
+    try {
+      setSaving(true);
+      const result = await saveBed(user.uid, bedData);
+      console.log('✅ Rezultat spremanja:', result);
+      alert('✅ Gredica je uspješno spremljena!');
+      setBedName('');
+      setGrid(Array(GRID_ROWS * GRID_COLS).fill(null));
+    } catch (error) {
+      console.error('❌ Greška pri spremanju gredice:', error.code, error.message, error);
+      alert('❌ Neuspješno spremanje gredice.');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -44,6 +117,29 @@ export default function BedDesigner({ selectedPlant }) {
 
   return (
     <div className={styles.bedContainer}>
+      {isEditing && (
+        <div className={styles.selectorRow}>
+          <label htmlFor="plantSelect">Odaberi biljku:</label>
+          <select
+            id="plantSelect"
+            className={styles.selectorDropdown}
+            value={selected?.naziv || ''}
+            onChange={(e) => {
+              const naziv = e.target.value;
+              const found = predefinedPlants.find(p => p.naziv === naziv);
+              setSelected(found || null);
+            }}
+          >
+            <option value="">—</option>
+            {predefinedPlants.map((plant) => (
+              <option key={plant.naziv} value={plant.naziv}>
+                {plant.naziv}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       <div className={styles.gridWrapper}>
         <div className={styles.grid}>
           {grid.map((plant, index) => {
@@ -66,7 +162,7 @@ export default function BedDesigner({ selectedPlant }) {
                     <button
                       className={styles.deleteBtn}
                       onClick={(e) => {
-                        e.stopPropagation(); // spriječi da klik pokrene handleCellClick
+                        e.stopPropagation();
                         handleCellDoubleClick(index);
                       }}
                     >
@@ -79,9 +175,30 @@ export default function BedDesigner({ selectedPlant }) {
           })}
         </div>
 
-        <button className={styles.resetBtn} onClick={resetGrid}>
-          🔄 Resetiraj gredicu
-        </button>
+           
+               <div className={styles.buttonRow}>
+          <button className={styles.resetBtn} onClick={resetGrid}>
+            🔄 Resetiraj gredicu
+          </button>
+
+          <input
+            type="text"
+            placeholder="Naziv gredice"
+            value={bedName}
+            onChange={(e) => setBedName(e.target.value)}
+            className={styles.nameInput}
+            title="Unesi naziv gredice prije spremanja"
+          />
+
+          <button
+            className={styles.saveBtn}
+            onClick={handleSave}
+            disabled={saving}
+            title="Spremi trenutni raspored biljaka u Firestore"
+          >
+            💾 {saving ? 'Spremam...' : 'Spremi gredicu'}
+          </button>
+        </div>
       </div>
     </div>
   );
