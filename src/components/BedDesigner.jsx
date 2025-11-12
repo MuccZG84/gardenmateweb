@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/BedDesigner.module.css';
 import { saveBed } from '../firebase/bedService';
 import { auth } from '../firebase/config';
@@ -48,13 +48,26 @@ export default function BedDesigner() {
   }, []);
 
   useEffect(() => {
+    setSelectedNaziv('Mrkva'); // automatski odabir biljke
+  }, []);
+
+  useEffect(() => {
     console.log('🔄 Grid promijenjen:', grid);
   }, [grid]);
 
   const handleCellClick = (index) => {
+    console.log('Klik na ćeliju:', index);
+    console.log('selectedNaziv:', selectedNaziv);
     const selected = predefinedPlants.find(p => p.naziv === selectedNaziv);
-    console.log('Klik na ćeliju:', index, 'Selected biljka:', selected);
-    if (!selected || grid[index]) return;
+    console.log('selected biljka:', selected);
+
+    if (!selected) {
+      alert('⚠️ Nema odabrane biljke. Odaberi iz dropdowna.');
+      return;
+    }
+
+    if (grid[index]) return;
+
     const newGrid = [...grid];
     newGrid[index] = selected;
     setGrid(newGrid);
@@ -149,11 +162,10 @@ export default function BedDesigner() {
                 key={index}
                 className={`${styles.gridCell} ${plant ? styles.hasPlant : ''} ${borderClass}`}
                 onClick={() => handleCellClick(index)}
-                onPointerDown={() => handleCellClick(index)}
                 onDoubleClick={() => handleCellDoubleClick(index)}
                 title={tooltip}
               >
-                {plant && (
+                {plant ? (
                   <div className={styles.plantContent}>
                     <span>{plant.naziv}</span>
                     <button
@@ -166,6 +178,8 @@ export default function BedDesigner() {
                       BRIŠI
                     </button>
                   </div>
+                ) : (
+                  <span style={{ fontSize: '0.7rem', color: '#aaa' }}>prazno</span>
                 )}
               </div>
             );
@@ -188,20 +202,6 @@ export default function BedDesigner() {
           {saving ? 'SPREMAM...' : 'SPREMI GREDICU'}
         </button>
       </div>
-
-      {/* ✅ Testni gumb za postavljanje Mrkve na ćeliju 6 */}
-      <button
-        onClick={() => {
-          const testPlant = predefinedPlants.find(p => p.naziv === 'Mrkva');
-          const newGrid = [...grid];
-          newGrid[6] = testPlant;
-          setGrid(newGrid);
-          console.log('✅ Mrkva postavljena na ćeliju 6');
-        }}
-        className={styles.saveBtn}
-      >
-        TEST: Postavi Mrkvu na ćeliju 6
-      </button>
     </div>
   );
 }
