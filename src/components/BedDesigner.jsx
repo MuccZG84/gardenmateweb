@@ -49,6 +49,10 @@ export default function BedDesigner() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log('🔄 Grid promijenjen:', grid);
+  }, [grid]);
+
   const handleCellClick = (index) => {
     const selected = predefinedPlants.find(p => p.naziv === selectedNaziv);
     console.log('Klik na ćeliju:', index, 'Selected biljka:', selected);
@@ -155,7 +159,7 @@ export default function BedDesigner() {
                 key={index}
                 className={`${styles.gridCell} ${plant ? styles.hasPlant : ''} ${borderClass}`}
                 onClick={() => handleCellClick(index)}
-                onTouchStart={() => handleCellClick(index)}
+                onPointerDown={() => handleCellClick(index)}
                 onDoubleClick={() => handleCellDoubleClick(index)}
                 title={tooltip}
               >
@@ -194,7 +198,20 @@ export default function BedDesigner() {
           {saving ? 'SPREMAM...' : 'SPREMI GREDICU'}
         </button>
       </div>
+
+      {/* ✅ Testni gumb za postavljanje Mrkve na ćeliju 6 */}
+      <button
+        onClick={() => {
+          const testPlant = predefinedPlants.find(p => p.naziv === 'Mrkva');
+          const newGrid = [...grid];
+          newGrid[6] = testPlant;
+          setGrid(newGrid);
+          console.log('✅ Mrkva postavljena na ćeliju 6');
+        }}
+        className={styles.saveBtn}
+      >
+        TEST: Postavi Mrkvu na ćeliju 6
+      </button>
     </div>
   );
 }
-         

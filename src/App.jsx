@@ -9,7 +9,7 @@ import Login from './components/Login';
 import Home from './pages/Home';
 import MyBeds from './pages/MyBeds';
 import CalendarPage from './pages/CalendarPage';
-import BedDesigner from './components/BedDesigner'; // ✅ dodano
+import BedDesigner from './components/BedDesigner';
 
 import './App.css';
 
@@ -49,8 +49,10 @@ function App() {
               path="/kalendar"
               element={<CalendarPage selectedPlant={selectedPlant} />}
             />
-            <Route path="/bed-designer" element={<BedDesigner />} />
-            
+            <Route
+              path="/bed-designer"
+              element={<BedDesigner />}
+            />
           </Routes>
         </main>
         <Footer />
