@@ -29,7 +29,7 @@ export default function BedDesigner() {
   const [grid, setGrid] = useState(Array(GRID_ROWS * GRID_COLS).fill(null));
   const [bedName, setBedName] = useState('');
   const [saving, setSaving] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const [selectedNaziv, setSelectedNaziv] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -50,6 +50,7 @@ export default function BedDesigner() {
   }, []);
 
   const handleCellClick = (index) => {
+    const selected = predefinedPlants.find(p => p.naziv === selectedNaziv);
     console.log('Klik na ćeliju:', index, 'Selected biljka:', selected);
     if (!selected || grid[index]) return;
     const newGrid = [...grid];
@@ -124,12 +125,11 @@ export default function BedDesigner() {
           <select
             id="plantSelect"
             className={styles.selectorDropdown}
-            value={selected?.naziv || ''}
+            value={selectedNaziv}
             onChange={(e) => {
               const naziv = e.target.value;
-              const found = predefinedPlants.find(p => p.naziv === naziv);
-              console.log('Odabrana biljka:', found);
-              setSelected(found || null);
+              console.log('Odabrana biljka:', naziv);
+              setSelectedNaziv(naziv);
             }}
           >
             <option value="">—</option>
@@ -173,36 +173,28 @@ export default function BedDesigner() {
                     </button>
                   </div>
                 )}
-             
-                            </div>
+              </div>
             );
           })}
         </div>
+      </div>
 
-        <div className={styles.buttonRow}>
-          <button className={styles.resetBtn} onClick={resetGrid}>
-            🔄 Resetiraj gredicu
-          </button>
-
-          <input
-            type="text"
-            placeholder="Naziv gredice"
-            value={bedName}
-            onChange={(e) => setBedName(e.target.value)}
-            className={styles.nameInput}
-            title="Unesi naziv gredice prije spremanja"
-          />
-
-          <button
-            className={styles.saveBtn}
-            onClick={handleSave}
-            disabled={saving}
-            title="Spremi trenutni raspored biljaka u Firestore"
-          >
-            💾 {saving ? 'Spremam...' : 'Spremi gredicu'}
-          </button>
-        </div>
+      <div className={styles.bedDetailsContainer}>
+        <input
+          type="text"
+          placeholder="Naziv gredice"
+          value={bedName}
+          onChange={(e) => setBedName(e.target.value)}
+          className={styles.bedNameInput}
+        />
+        <button onClick={resetGrid} className={styles.resetBtn}>
+          RESETIRAJ
+        </button>
+        <button onClick={handleSave} disabled={saving} className={styles.saveBtn}>
+          {saving ? 'SPREMAM...' : 'SPREMI GREDICU'}
+        </button>
       </div>
     </div>
   );
 }
+         
