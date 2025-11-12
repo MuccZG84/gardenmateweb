@@ -25,11 +25,11 @@ const predefinedPlants = [
   { naziv: 'Grašak', visina: 'penjač', razmak: '30cm', kompatibilne: ['Mrkva'], nekompatibilne: ['Luk', 'Češnjak'] },
 ];
 
-export default function BedDesigner({ selectedPlant }) {
+export default function BedDesigner() {
   const [grid, setGrid] = useState(Array(GRID_ROWS * GRID_COLS).fill(null));
   const [bedName, setBedName] = useState('');
   const [saving, setSaving] = useState(false);
-  const [selected, setSelected] = useState(selectedPlant || null);
+  const [selected, setSelected] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -50,6 +50,7 @@ export default function BedDesigner({ selectedPlant }) {
   }, []);
 
   const handleCellClick = (index) => {
+    console.log('Klik na ćeliju:', index, 'Selected biljka:', selected);
     if (!selected || grid[index]) return;
     const newGrid = [...grid];
     newGrid[index] = selected;
@@ -127,6 +128,7 @@ export default function BedDesigner({ selectedPlant }) {
             onChange={(e) => {
               const naziv = e.target.value;
               const found = predefinedPlants.find(p => p.naziv === naziv);
+              console.log('Odabrana biljka:', found);
               setSelected(found || null);
             }}
           >
@@ -153,6 +155,7 @@ export default function BedDesigner({ selectedPlant }) {
                 key={index}
                 className={`${styles.gridCell} ${plant ? styles.hasPlant : ''} ${borderClass}`}
                 onClick={() => handleCellClick(index)}
+                onTouchStart={() => handleCellClick(index)}
                 onDoubleClick={() => handleCellDoubleClick(index)}
                 title={tooltip}
               >
@@ -170,13 +173,13 @@ export default function BedDesigner({ selectedPlant }) {
                     </button>
                   </div>
                 )}
-              </div>
+             
+                            </div>
             );
           })}
         </div>
 
-           
-               <div className={styles.buttonRow}>
+        <div className={styles.buttonRow}>
           <button className={styles.resetBtn} onClick={resetGrid}>
             🔄 Resetiraj gredicu
           </button>
