@@ -30,12 +30,10 @@ export default function BedDesigner() {
   const [bedName, setBedName] = useState('');
   const [saving, setSaving] = useState(false);
   const [selectedNaziv, setSelectedNaziv] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('editBed');
     if (saved) {
-      setIsEditing(true);
       try {
         const parsed = JSON.parse(saved);
         console.log('🧩 Učitana gredica iz localStorage:', parsed);
@@ -63,7 +61,6 @@ export default function BedDesigner() {
   };
 
   const handleCellDoubleClick = (index) => {
-    console.log('Dupli klik na ćeliju:', index, 'Biljka:', grid[index]);
     if (!grid[index]) return;
     const newGrid = [...grid];
     newGrid[index] = null;
@@ -78,8 +75,6 @@ export default function BedDesigner() {
 
   const handleSave = async () => {
     const user = auth.currentUser;
-    console.log('👤 Prijavljeni korisnik:', user);
-
     if (!user) {
       alert('Prijava je potrebna za spremanje gredice.');
       return;
@@ -90,17 +85,14 @@ export default function BedDesigner() {
       grid: grid,
     };
 
-    console.log('📤 Podaci za spremanje:', bedData);
-
     try {
       setSaving(true);
-      const result = await saveBed(user.uid, bedData);
-      console.log('✅ Rezultat spremanja:', result);
+      await saveBed(user.uid, bedData);
       alert('✅ Gredica je uspješno spremljena!');
       setBedName('');
       setGrid(Array(GRID_ROWS * GRID_COLS).fill(null));
     } catch (error) {
-      console.error('❌ Greška pri spremanju gredice:', error.code, error.message, error);
+      console.error('❌ Greška pri spremanju gredice:', error);
       alert('❌ Neuspješno spremanje gredice.');
     } finally {
       setSaving(false);
@@ -123,28 +115,26 @@ export default function BedDesigner() {
 
   return (
     <div className={styles.bedContainer}>
-      {isEditing && (
-        <div className={styles.selectorRow}>
-          <label htmlFor="plantSelect">Odaberi biljku:</label>
-          <select
-            id="plantSelect"
-            className={styles.selectorDropdown}
-            value={selectedNaziv}
-            onChange={(e) => {
-              const naziv = e.target.value;
-              console.log('Odabrana biljka:', naziv);
-              setSelectedNaziv(naziv);
-            }}
-          >
-            <option value="">—</option>
-            {predefinedPlants.map((plant) => (
-              <option key={plant.naziv} value={plant.naziv}>
-                {plant.naziv}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+      <div className={styles.selectorRow}>
+        <label htmlFor="plantSelect">Odaberi biljku:</label>
+        <select
+          id="plantSelect"
+          className={styles.selectorDropdown}
+          value={selectedNaziv}
+          onChange={(e) => {
+            const naziv = e.target.value;
+            console.log('Odabrana biljka:', naziv);
+            setSelectedNaziv(naziv);
+          }}
+        >
+          <option value="">—</option>
+          {predefinedPlants.map((plant) => (
+            <option key={plant.naziv} value={plant.naziv}>
+              {plant.naziv}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div className={styles.gridWrapper}>
         <div className={styles.grid}>
