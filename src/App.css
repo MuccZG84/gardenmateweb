@@ -2,23 +2,47 @@ html, body, #root {
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100%;
   max-width: 100vw;
   overflow-x: hidden;
   box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fafafa;
 }
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: inherit;
 }
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 1rem; /* dodan horizontalni padding */
   text-align: center;
 }
 
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 12px 0;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  padding-bottom: 60px; /* prostor za sticky footer */
+}
+
+/* Logo animacija i stil */
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -33,72 +57,28 @@ html, body, #root {
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
-
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
 }
 
+/* Kartice i dokumentacija */
 .card {
   padding: 2em;
 }
-
 .read-the-docs {
   color: #888;
 }
-body, html, #root {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #fafafa;
-}
 
-.appContainer {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.mainContent {
-  flex: 1;
-  overflow-y: auto;
-  padding-bottom: 60px; /* prostor za sticky footer */
-}
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-.appContainer {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-.mainContent {
-  flex: 1;
-  padding: 12px;
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
+/* Mobilna prilagodba */
+@media (max-width: 480px) {
+  #root,
+  .appContainer {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
 }

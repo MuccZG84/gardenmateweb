@@ -2,12 +2,18 @@
   padding: 12px;
   background-color: #f0f5f0;
   border-top: 1px solid #ccc;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .title {
   font-size: 1.4rem;
   margin-bottom: 4px;
   text-align: center;
+  color: #2e7d32;
+  font-weight: 600;
 }
 
 .latinski {
@@ -15,6 +21,7 @@
   color: #555;
   text-align: center;
   margin-bottom: 12px;
+  font-style: italic;
 }
 
 .infoGrid {
@@ -31,4 +38,15 @@
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #ddd;
+}
+
+/* Mobilna prilagodba */
+@media (max-width: 600px) {
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .detailsContainer {
+    padding: 12px;
+  }
 }
