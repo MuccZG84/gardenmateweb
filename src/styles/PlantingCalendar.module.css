@@ -18,7 +18,7 @@
 
 .monthGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 stupca = 4 reda */
+  grid-template-columns: repeat(3, 1fr);
   gap: 6px;
   margin-bottom: 8px;
 }
@@ -29,6 +29,7 @@
   font-size: 0.8rem;
   border-radius: 4px;
   background-color: #e0e0e0;
+  word-break: break-word;
 }
 
 .sadnja {
@@ -77,7 +78,7 @@
   }
 
   .monthGrid {
-    grid-template-columns: repeat(2, 1fr); /* 2 stupca na manjim ekranima */
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .month {
