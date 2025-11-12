@@ -179,7 +179,7 @@ export default function BedDesigner() {
                     </button>
                   </div>
                 ) : (
-                  <span style={{ fontSize: '0.7rem', color: '#aaa' }}>prazno</span>
+                  <span style={{ fontSize: '0.7rem', color: '#aaa' }}> </span>
                 )}
               </div>
             );
