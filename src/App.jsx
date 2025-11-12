@@ -49,10 +49,8 @@ function App() {
               path="/kalendar"
               element={<CalendarPage selectedPlant={selectedPlant} />}
             />
-            <Route
-              path="/bed-designer"
-              element={<BedDesigner selectedPlant={selectedPlant} />} // ✅ dodano
-            />
+            <Route path="/bed-designer" element={<BedDesigner />} />
+            
           </Routes>
         </main>
         <Footer />
