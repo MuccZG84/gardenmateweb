@@ -32,8 +32,10 @@ function App() {
   return (
     <Router>
       <div className="appContainer">
-        <Header selectedPlant={selectedPlant} />
-        <main className="mainContent">
+  <Header selectedPlant={selectedPlant} />
+  <div className="contentWrapper">
+    <main className="mainContent">
+
           <Routes>
             <Route
               path="/"
@@ -56,6 +58,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+      </div>
       </div>
     </Router>
   );
