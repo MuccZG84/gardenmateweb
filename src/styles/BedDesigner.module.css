@@ -159,3 +159,96 @@
     justify-content: start;
   }
 }
+.formRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.nameInput {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #333;
+  max-width: 240px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.saveBtn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  background-color: #c8e6c9;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #2e7d32;
+  transition: background-color 0.2s ease;
+}
+
+.saveBtn:hover {
+  background-color: #a5d6a7;
+}
+.bedDetailsContainer {
+  width: 100%;
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.formRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bedNameInput {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #333;
+  max-width: 240px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.saveBtn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  background-color: #c8e6c9;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #2e7d32;
+  transition: background-color 0.2s ease;
+}
+
+.saveBtn:hover {
+  background-color: #a5d6a7;
+}
+
+@media (max-width: 600px) {
+  .formRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .bedNameInput,
+  .resetBtn,
+  .saveBtn {
+    width: 100%;
+    max-width: 100%;
+  }
+}
