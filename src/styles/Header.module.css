@@ -2,57 +2,68 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: #e8f5e9;
+  background-color: #f0f5f0; /* usklađeno s .detailsContainer */
   padding: 16px 12px;
   text-align: center;
   border-bottom: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   width: 100%;
-  max-width: 100vw;
+  max-width: 600px;
   box-sizing: border-box;
-}
-
-@media (min-width: 600px) {
-  .header {
-    max-width: 600px;
-    margin: 0 auto;
-    border-radius: 0 0 8px 8px;
-  }
+  margin: 0 auto;
+  border-radius: 0 0 8px 8px;
 }
 
 .title {
-  font-size: clamp(1.4rem, 4vw, 2rem);
-  margin: 0;
+  font-size: 1.4rem; /* kao .title u plant.details.module.css */
+  margin-bottom: 4px;
+  text-align: center;
   color: #2e7d32;
   font-weight: 600;
 }
 
 .subheading {
-  font-size: 0.9rem;
+  font-size: 0.95rem; /* kao .latinski */
   color: #555;
-  margin-top: 4px;
+  text-align: center;
+  margin-bottom: 12px;
+  font-style: italic;
 }
 
 .nav {
-  margin-top: 10px;
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
+  font-size: 0.9rem;
+  margin-top: 12px;
 }
 
 .navBtn {
-  background: none;
-  border: none;
-  font-size: 0.9rem;
+  background-color: #fff; /* kao .notes */
+  border: 1px solid #ddd;
   color: #2e7d32;
   cursor: pointer;
   padding: 6px 10px;
-  border-radius: 4px;
+  border-radius: 6px;
   transition: background-color 0.2s ease;
   text-decoration: none;
+  font-size: 0.9rem;
 }
 
 .navBtn:hover {
   background-color: #d0e8d0;
+}
+
+/* Mobilna prilagodba */
+@media (max-width: 600px) {
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navBtn {
+    width: 100%;
+    max-width: 240px;
+  }
 }

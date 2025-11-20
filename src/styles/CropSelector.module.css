@@ -1,10 +1,8 @@
 .selectorContainer {
-  padding: 12px;
   background-color: #f9f9f4;
   box-sizing: border-box;
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
 }
 
 .heading {
@@ -96,10 +94,6 @@
 
 /* Mobilna prilagodba */
 @media (max-width: 600px) {
-  .selectorContainer {
-    padding: 12px;
-  }
-
   .plantItem {
     font-size: 0.9rem;
   }

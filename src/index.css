@@ -1,14 +1,26 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Segoe UI', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Tematske boje */
+  --color-bg-light: #f0f5f0;
+  --color-bg-dark: #242424;
+  --color-text-light: #213547;
+  --color-text-dark: rgba(255, 255, 255, 0.87);
+  --color-accent: #2e7d32;
+  --color-hover: #d0e8d0;
+  --color-border: #ccc;
+  --color-button-bg: #fff;
+  --color-button-hover: #e0e0d0;
+
+  color-scheme: light dark;
+  color: var(--color-text-dark);
+  background-color: var(--color-bg-dark);
 }
 
 body {
@@ -22,17 +34,36 @@ body {
   display: flex;
   place-items: center;
   min-height: 100vh;
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-dark);
 }
 
+/* Svijetla tema */
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: var(--color-text-light);
     background-color: #ffffff;
   }
-  a:hover {
-    color: #747bff;
+
+  body {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
   }
+
+  a:hover {
+    color: #2e7d32;
+  }
+
   button {
-    background-color: #f9f9f9;
+    background-color: var(--color-button-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  button:hover {
+    background-color: var(--color-button-hover);
   }
 }

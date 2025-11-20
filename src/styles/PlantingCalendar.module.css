@@ -1,11 +1,9 @@
 .calendarContainer {
-  padding: 12px;
   background-color: #f6f6f2;
   border-top: 1px solid #ccc;
   box-sizing: border-box;
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
 }
 
 .title {
@@ -73,10 +71,6 @@
 
 /* Mobilna prilagodba */
 @media (max-width: 600px) {
-  .calendarContainer {
-    padding: 12px;
-  }
-
   .monthGrid {
     grid-template-columns: repeat(2, 1fr);
   }

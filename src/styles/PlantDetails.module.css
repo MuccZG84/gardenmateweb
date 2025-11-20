@@ -1,11 +1,9 @@
 .detailsContainer {
-  padding: 12px;
   background-color: #f0f5f0;
   border-top: 1px solid #ccc;
   box-sizing: border-box;
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
 }
 
 .title {
@@ -40,12 +38,9 @@
   border: 1px solid #ddd;
 }
 
+/* Mobilna prilagodba */
 @media (max-width: 600px) {
   .infoGrid {
     grid-template-columns: 1fr;
-  }
-
-  .detailsContainer {
-    padding: 12px;
   }
 }
