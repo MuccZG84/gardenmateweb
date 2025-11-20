@@ -2,11 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
   box-sizing: border-box;
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
 }
 
 .gridWrapper {
@@ -23,7 +21,7 @@
   grid-template-columns: repeat(6, 1fr);
   gap: 4px;
   justify-content: center;
-  min-width: 288px; /* 6 x 48px + gaps */
+  min-width: 288px;
 }
 
 .gridCell {
@@ -140,10 +138,6 @@
 }
 
 @media (max-width: 600px) {
-  .bedContainer {
-    padding: 12px;
-  }
-
   .gridCell {
     width: 48px;
     height: 48px;
