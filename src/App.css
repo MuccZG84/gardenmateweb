@@ -43,14 +43,3 @@ html, body, #root {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
 }
-.appContainer {
-  outline: 2px solid green;
-}
-
-.contentWrapper {
-  outline: 2px dashed blue;
-}
-
-.mainContent {
-  outline: 2px dotted red;
-}
